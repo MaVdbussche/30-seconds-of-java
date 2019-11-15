@@ -435,7 +435,7 @@ public class Library {
   }
 
   /**
-   * Print all declared methods of the class
+   * Print all declared methods of the class.
    * @param cls Tested class
    * @return list of methods name
    */
@@ -445,5 +445,31 @@ public class Library {
       list.add(method.getName());
     }
     return list;
+  }
+
+  /**
+   * Validates an identification number using Luhn algorithm.
+   * @param num the number to validate
+   * @return true if the number is valid according to Luhn algorithm
+   * @see <a href="https://en.wikipedia.org/wiki/Luhn_algorithm">Luhn algorithm</a>
+   */
+  public static boolean luhn(final String num) {
+    var nbDigits = num.length();
+    var checkDigit = Character.getNumericValue(num.charAt(nbDigits - 1));  // Last digit as an int
+    var parity = (nbDigits % 2);
+    var sum = 0;
+    for (var i = 0; i <= nbDigits - 2; i++) {
+      var digit = Character.getNumericValue(num.charAt(i));
+      // from the rightmost digit (excluding the last, check digit) and moving left, we work on every second digit
+      if ((i % 2) == parity) {
+        digit = digit * 2;
+      }
+      // reducing numbers exceeding 9
+      if (digit > 9) {
+        digit = digit - 9;
+      }
+      sum = sum + digit;
+    }
+    return ((checkDigit + sum) % 10) == 0;
   }
 }

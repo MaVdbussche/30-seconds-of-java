@@ -371,4 +371,14 @@ public class LibraryTest {
     assertNotEquals("multiArrayConcat", list.get(0));
     assertNotEquals("arrayConcat", list.get(1));
   }
+
+  /**
+   * Tests for {@link Library#luhn(String)}.
+   */
+  @Test
+  public void testLuhn() {
+    assertFalse(Library.luhn("79927398710"));
+    assertFalse(Library.luhn("79927398712"));
+    assertTrue(Library.luhn("79927398713"));
+  }
 }
